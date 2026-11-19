@@ -72,6 +72,23 @@ export function TerminalView({ game, isNewPlayer }: Props) {
       term.open(host);
       fit.fit();
       observer.observe(host);
+
+      // Desactiva autocorrector, mayúsculas automáticas y sugerencias de teclado en móviles
+      const configureTextarea = () => {
+        const textarea = host.querySelector<HTMLTextAreaElement>('.xterm-helper-textarea');
+        if (textarea) {
+          textarea.setAttribute('autocapitalize', 'none');
+          textarea.setAttribute('autocorrect', 'off');
+          textarea.setAttribute('autocomplete', 'off');
+          textarea.setAttribute('spellcheck', 'false');
+          textarea.setAttribute('aria-autocomplete', 'none');
+          textarea.setAttribute('data-gramm', 'false');
+          textarea.setAttribute('data-enable-grammarly', 'false');
+          textarea.setAttribute('enterkeyhint', 'go');
+        }
+      };
+      configureTextarea();
+
       const controller = new TerminalController(term, game, sounds);
       controllerRef.current = controller;
       void controller.start(isNewPlayer);

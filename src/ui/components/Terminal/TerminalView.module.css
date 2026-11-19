@@ -123,6 +123,20 @@
   background-color: transparent !important;
 }
 
+/*
+ * Elimina el recuadro negro que xterm.js coloca por defecto al escribir en teclados
+ * móviles (composition-view / IME). Hacemos el fondo transparente y las letras del
+ * color del tema con un subrayado sutil, para que nunca tape el texto.
+ */
+.host :global(.xterm .composition-view),
+.host :global(.xterm .composition-view.active) {
+  background: rgba(0, 0, 0, 0.4) !important;
+  color: var(--c-green-soft) !important;
+  border-bottom: 2px solid var(--c-cyan) !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
 /* ─── Tema profesional ─── */
 :global(:root[data-theme='pro']) .frame {
   border-color: var(--c-border);
