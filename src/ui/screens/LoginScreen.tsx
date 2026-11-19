@@ -88,12 +88,13 @@ export function LoginScreen({ onSubmit, notice, restoring }: Props) {
       : `Entre 3 y ${USERNAME_MAX} caracteres: minúsculas, números, - y _`
     : null;
   const message = error ?? (restoring ? 'Restaurando tu sesión…' : notice);
+  const mascotSize = typeof window !== 'undefined' && window.innerWidth < 480 ? 76 : typeof window !== 'undefined' && window.innerWidth < 768 ? 96 : 120;
 
   return (
     <main className={styles.screen}>
       <div className={styles.card}>
         <div className={styles.avatar}>
-          <MascotFigure mood={error ? 'worried' : busy || restoring ? 'thinking' : username ? 'talking' : 'idle'} size={120} />
+          <MascotFigure mood={error ? 'worried' : busy || restoring ? 'thinking' : username ? 'talking' : 'idle'} size={mascotSize} />
         </div>
 
         <h1 className={styles.title} data-text="DEVOPS UNIVERSITY">DEVOPS UNIVERSITY</h1>

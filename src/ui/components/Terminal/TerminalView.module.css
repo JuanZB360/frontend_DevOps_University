@@ -64,7 +64,57 @@
 
 @media (max-width: 720px) {
   .viewport {
-    padding: 10px;
+    padding: 8px 10px;
+  }
+}
+
+/* Barra de teclas rápidas para dispositivos táctiles/móviles */
+.mobileToolbar {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobileToolbar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 8px;
+    background: var(--c-panel);
+    border-top: 1px solid var(--c-border);
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    flex-shrink: 0;
+  }
+
+  .mobileToolbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mobileKey {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 32px;
+    padding: 0 10px;
+    border: 1px solid var(--c-border-strong);
+    border-radius: var(--radius);
+    background: var(--c-inset);
+    color: var(--c-green-soft);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 600;
+    touch-action: manipulation;
+    user-select: none;
+    transition: background 0.1s, transform 0.05s;
+  }
+
+  .mobileKey:active {
+    background: var(--c-green);
+    color: #000;
+    transform: scale(0.96);
   }
 }
 

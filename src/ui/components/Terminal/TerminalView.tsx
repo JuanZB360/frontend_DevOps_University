@@ -19,8 +19,21 @@ interface Props {
   isNewPlayer: boolean;
 }
 
+const MOBILE_KEYS = [
+  { label: 'Tab', val: '\t', title: 'Autocompletar comando o ruta' },
+  { label: 'Ctrl+C', val: '\x03', title: 'Cancelar o interrumpir (^C)' },
+  { label: '▲', val: '\x1b[A', title: 'Comando anterior' },
+  { label: '▼', val: '\x1b[B', title: 'Comando siguiente' },
+  { label: 'Enter', val: '\r', title: 'Ejecutar' },
+  { label: '/', val: '/', title: 'Barra /' },
+  { label: '-', val: '-', title: 'Guion -' },
+  { label: '~', val: '~', title: 'Home ~' },
+  { label: '|', val: '|', title: 'Pipe |' },
+];
+
 export function TerminalView({ game, isNewPlayer }: Props) {
   const hostRef = useRef<HTMLDivElement>(null);
+  const controllerRef = useRef<TerminalController | null>(null);
 
   useEffect(() => {
     const host = hostRef.current;
@@ -40,7 +53,6 @@ export function TerminalView({ game, isNewPlayer }: Props) {
     const fit = new FitAddon();
     term.loadAddon(fit);
 
-    let controller: TerminalController | null = null;
     let disposed = false;
     const observer = new ResizeObserver(() => {
       try {
@@ -60,7 +72,8 @@ export function TerminalView({ game, isNewPlayer }: Props) {
       term.open(host);
       fit.fit();
       observer.observe(host);
-      controller = new TerminalController(term, game, sounds);
+      const controller = new TerminalController(term, game, sounds);
+      controllerRef.current = controller;
       void controller.start(isNewPlayer);
       term.focus();
     });
@@ -86,12 +99,18 @@ export function TerminalView({ game, isNewPlayer }: Props) {
       unsubscribeTheme();
       window.removeEventListener('beforeunload', persist);
       observer.disconnect();
-      controller?.dispose();
+      controllerRef.current?.dispose();
+      controllerRef.current = null;
       term.dispose();
     };
     // isNewPlayer solo importa al montar.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [game]);
+
+  const handleMobileKey = (val: string) => {
+    controllerRef.current?.sendInput(val);
+    hostRef.current?.querySelector('textarea')?.focus();
+  };
 
   return (
     <section className={styles.frame} aria-label="Terminal">
@@ -109,6 +128,22 @@ export function TerminalView({ game, isNewPlayer }: Props) {
       </header>
       <div className={styles.viewport} onClick={() => hostRef.current?.querySelector('textarea')?.focus()}>
         <div ref={hostRef} className={styles.host} />
+      </div>
+      <div className={styles.mobileToolbar} aria-label="Teclas rápidas de terminal">
+        {MOBILE_KEYS.map((k) => (
+          <button
+            key={k.label}
+            type="button"
+            className={styles.mobileKey}
+            title={k.title}
+            onPointerDown={(e) => {
+              e.preventDefault(); // Evita perder foco del textarea
+              handleMobileKey(k.val);
+            }}
+          >
+            {k.label}
+          </button>
+        ))}
       </div>
     </section>
   );

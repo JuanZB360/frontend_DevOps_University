@@ -122,6 +122,11 @@ export class TerminalController {
 
   // ─────────────────────────────── Teclado ───────────────────────────────
 
+  /** Permite enviar teclas o secuencias de escape desde botones táctiles en móviles. */
+  sendInput(data: string): void {
+    this.onInput(data);
+  }
+
   private onInput(data: string): void {
     if (this.interactive) {
       this.interactive(data);

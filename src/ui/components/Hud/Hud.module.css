@@ -401,3 +401,116 @@
     display: none;
   }
 }
+
+/* Pantallas medianas y tablets (<= 920px) */
+@media (max-width: 920px) {
+  .progress {
+    display: none;
+  }
+  .xpText {
+    display: none;
+  }
+  .rank {
+    display: none;
+  }
+  .level {
+    max-width: 180px;
+  }
+}
+
+/* Dispositivos móviles (<= 768px) */
+@media (max-width: 768px) {
+  .hud {
+    padding: 6px 10px;
+    gap: 8px;
+  }
+
+  .logo {
+    font-size: 20px;
+  }
+
+  :global(:root[data-theme='ubuntu']) .appName {
+    font-size: 13px;
+  }
+
+  .player {
+    max-width: 90px;
+  }
+
+  .name {
+    font-size: 12px;
+  }
+
+  .level {
+    max-width: 120px;
+    gap: 4px;
+  }
+
+  .levelLabel {
+    font-size: 16px;
+  }
+
+  .points {
+    font-size: 12px;
+  }
+
+  .syncText {
+    display: none;
+  }
+
+  .menu {
+    right: 0;
+    left: auto;
+    width: min(280px, calc(100vw - 20px));
+  }
+}
+
+/* Móviles compactos (<= 480px) */
+@media (max-width: 480px) {
+  .hud {
+    padding: 4px 6px;
+    gap: 5px;
+  }
+
+  :global(:root[data-theme='ubuntu']) .activities {
+    padding: 2px 6px;
+    font-size: 11px;
+  }
+
+  .manualToggle {
+    font-size: 15px;
+    padding: 2px 4px;
+  }
+
+  :global(:root[data-theme='ubuntu']) .appName {
+    display: none;
+  }
+
+  .player {
+    max-width: 70px;
+  }
+
+  .xpBar {
+    display: none;
+  }
+
+  .level {
+    flex: initial;
+    max-width: none;
+  }
+
+  .points small {
+    display: none;
+  }
+
+  .soundToggle {
+    padding: 2px 4px;
+    font-size: 14px;
+  }
+
+  .menuWrap > .btn,
+  .menuWrap > button {
+    padding: 2px 8px;
+    font-size: 11px;
+  }
+}
