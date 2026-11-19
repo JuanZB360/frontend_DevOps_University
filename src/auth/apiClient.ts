@@ -7,7 +7,8 @@
  *   convierten en `ApiError` con el `code` estable que manda el servidor.
  */
 
-export const API_BASE = '/api/v1';
+const customBase = (import.meta.env.VITE_API_BASE_URL as string | undefined)?.trim();
+export const API_BASE = customBase ? `${customBase.replace(/\/+$/, '')}/api/v1` : '/api/v1';
 
 /** Error devuelto por el servidor (4xx/5xx). */
 export class ApiError extends Error {
