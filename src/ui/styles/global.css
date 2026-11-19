@@ -1,0 +1,338 @@
+/*
+ * Estilos globales y tokens de diseño de DevOps University.
+ *
+ * Hay tres temas, seleccionables desde el menú Sistema:
+ *   - "ubuntu" (por defecto): escritorio Ubuntu/GNOME (naranja y berenjena).
+ *   - "matrix": verde fósforo sobre negro, brillos y líneas CRT.
+ *   - "pro": sobrio, estilo herramienta profesional (gris pizarra, acento azul).
+ *
+ * Los componentes SOLO usan estas variables; un tema nuevo = un bloque nuevo
+ * de variables. Nota: --c-green es el "color de acento principal" del tema.
+ */
+:root {
+  /* Colores base */
+  --c-bg: #000400;
+  --c-panel: rgba(0, 18, 6, 0.82);
+  --c-panel-solid: #010d04;
+  --c-border: rgba(0, 255, 102, 0.22);
+  --c-border-strong: rgba(0, 255, 102, 0.55);
+
+  /* Texto y acentos */
+  --c-green: #00ff66;
+  --c-green-soft: #7dffb0;
+  --c-green-dim: #1f8f4e;
+  --c-green-faint: rgba(0, 255, 102, 0.08);
+  --c-cyan: #00e5ff;
+  --c-amber: #ffb000;
+  --c-red: #ff4d6d;
+  --c-magenta: #e05cff;
+  --c-text: #c8ffd9;
+  --c-muted: #5fae80;
+
+  /* Componentes RGB para transparencias: rgb(var(--accent-rgb) / 0.2) */
+  --accent-rgb: 0 255 102;
+  --amber-rgb: 255 176 0;
+  --red-rgb: 255 77 109;
+
+  /* Superficies */
+  --c-inset: rgba(0, 0, 0, 0.55);
+  --c-surface-strong: rgba(0, 10, 3, 0.92);
+  --shadow-panel: 0 0 14px rgba(0, 255, 102, 0.35), inset 0 0 18px rgba(0, 255, 102, 0.05), 0 0 60px rgba(0, 0, 0, 0.85);
+  --shadow-bar: 0 0 20px rgba(0, 255, 102, 0.12);
+  --xp-fill: repeating-linear-gradient(90deg, var(--c-green) 0 6px, #00c853 6px 8px);
+
+  /* Brillos */
+  --glow-sm: 0 0 6px rgba(0, 255, 102, 0.45);
+  --glow-md: 0 0 14px rgba(0, 255, 102, 0.35), inset 0 0 18px rgba(0, 255, 102, 0.05);
+  --glow-text-strong: 0 0 12px rgba(0, 255, 102, 0.6);
+  --glow-amber: 0 0 8px rgba(255, 176, 0, 0.5);
+  --glow-red: 0 0 10px rgba(255, 77, 109, 0.5);
+
+  /* N0X: los 4 tonos de una pantalla LCD de consola portátil (iguales en todos los temas) */
+  --lcd-0: #0f380f;
+  --lcd-1: #306230;
+  --lcd-2: #8bac0f;
+  --lcd-3: #9bbc0f;
+  --lcd-bezel: #555a66;
+
+  /* Tipografía */
+  --font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', Menlo, monospace;
+  --font-ui: var(--font-mono);
+  --font-display: 'VT323', 'JetBrains Mono', monospace;
+
+  /* Espaciado y forma */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --radius: 4px;
+
+  color-scheme: dark;
+}
+
+/* ─────────────── Tema "Profesional" ─────────────── */
+:root[data-theme='pro'] {
+  --c-bg: #0d1117;
+  --c-panel: #161b22;
+  --c-panel-solid: #161b22;
+  --c-border: #30363d;
+  --c-border-strong: #3d444d;
+
+  --c-green: #58a6ff;
+  --c-green-soft: #a5d6ff;
+  --c-green-dim: #6e7681;
+  --c-green-faint: rgba(88, 166, 255, 0.1);
+  --c-cyan: #39c5cf;
+  --c-amber: #d29922;
+  --c-red: #f85149;
+  --c-magenta: #bc8cff;
+  --c-text: #e6edf3;
+  --c-muted: #8b949e;
+
+  --accent-rgb: 88 166 255;
+  --amber-rgb: 210 153 34;
+  --red-rgb: 248 81 73;
+
+  --c-inset: #0d1117;
+  --c-surface-strong: #0d1117;
+  --shadow-panel: 0 8px 24px rgba(1, 4, 9, 0.5);
+  --shadow-bar: none;
+  --xp-fill: linear-gradient(90deg, #1f6feb, #58a6ff);
+
+  --glow-sm: none;
+  --glow-md: none;
+  --glow-text-strong: none;
+  --glow-amber: none;
+  --glow-red: none;
+
+  --font-ui: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Inter', system-ui, sans-serif;
+  --radius: 6px;
+}
+
+/* ─────────────── Tema "Ubuntu" (escritorio GNOME / Yaru) ─────────────── */
+:root[data-theme='ubuntu'] {
+  --c-bg: #2c001e;
+  --c-panel: #242424;
+  --c-panel-solid: #242424;
+  --c-border: rgba(255, 255, 255, 0.09);
+  --c-border-strong: rgba(255, 255, 255, 0.16);
+
+  --c-green: #e95420; /* naranja Ubuntu: acento principal */
+  --c-green-soft: #ff8c5a;
+  --c-green-dim: #9a9996;
+  --c-green-faint: rgba(233, 84, 32, 0.14);
+  --c-cyan: #62a0ea;
+  --c-amber: #f6d32d;
+  --c-red: #ed333b;
+  --c-magenta: #c061cb;
+  --c-text: #f6f5f4;
+  --c-muted: #9a9996;
+
+  --accent-rgb: 233 84 32;
+  --amber-rgb: 246 211 45;
+  --red-rgb: 237 51 59;
+
+  --c-inset: #1e1e1e;
+  --c-surface-strong: #300a24; /* berenjena clásico de la Terminal de Ubuntu */
+  --c-headerbar: #303030;
+  --shadow-panel: 0 10px 30px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.06);
+  --shadow-bar: none;
+  --xp-fill: #e95420;
+
+  --glow-sm: none;
+  --glow-md: none;
+  --glow-text-strong: none;
+  --glow-amber: none;
+  --glow-red: none;
+
+  --font-ui: 'Ubuntu', system-ui, sans-serif;
+  --font-display: 'Ubuntu', system-ui, sans-serif;
+  --font-mono: 'Ubuntu Mono', 'JetBrains Mono', monospace;
+  --radius: 6px;
+}
+
+/* Fondo de escritorio propio inspirado en los colores de Ubuntu */
+:root[data-theme='ubuntu'] body {
+  background:
+    radial-gradient(ellipse 70% 60% at 12% 105%, rgba(233, 84, 32, 0.85) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 55% at 95% -5%, rgba(119, 33, 111, 0.9) 0%, transparent 65%),
+    linear-gradient(135deg, #2c001e 0%, #4a0d38 55%, #2c001e 100%);
+  background-attachment: fixed;
+}
+
+:root[data-theme='ubuntu'] body::after {
+  display: none;
+}
+
+/* Botones estilo Yaru: grises redondeados; la acción sugerida va en naranja */
+:root[data-theme='ubuntu'] .btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 6px;
+  color: var(--c-text);
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+:root[data-theme='ubuntu'] .btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.16);
+  color: var(--c-text);
+  box-shadow: none;
+}
+
+:root[data-theme='ubuntu'] .btn--amber {
+  background: #e95420;
+  color: #fff;
+}
+
+:root[data-theme='ubuntu'] .btn--amber:hover:not(:disabled) {
+  background: #f06a3a;
+  color: #fff;
+}
+
+:root[data-theme='ubuntu'] .btn--ghost {
+  background: transparent;
+}
+
+:root[data-theme='ubuntu'] ::selection {
+  background: #e95420;
+  color: #fff;
+}
+
+/* El tema profesional no usa líneas CRT. */
+:root[data-theme='pro'] body::after {
+  display: none;
+}
+
+:root[data-theme='pro'] .btn {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+:root[data-theme='pro'] .btn:hover:not(:disabled) {
+  color: #fff;
+}
+
+code,
+pre,
+kbd {
+  font-family: var(--font-mono);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--c-bg);
+  color: var(--c-text);
+  font-family: var(--font-ui);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+
+/* Líneas de escaneo CRT sobre toda la app. */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1000;
+  background: repeating-linear-gradient(to bottom, rgba(0, 0, 0, 0) 0 2px, rgba(0, 0, 0, 0.18) 2px 3px);
+  mix-blend-mode: multiply;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+::selection {
+  background: var(--c-green);
+  color: #000;
+}
+
+/* Barras de desplazamiento discretas */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--c-green-dim) transparent;
+}
+
+:focus-visible {
+  outline: 1px solid var(--c-cyan);
+  outline-offset: 2px;
+}
+
+/* Botón base reutilizable con aspecto de terminal: [ TEXTO ] */
+.btn {
+  background: transparent;
+  border: 1px solid var(--c-border-strong);
+  color: var(--c-green);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 12px;
+  transition: background 0.15s, box-shadow 0.15s, color 0.15s;
+}
+
+.btn:hover:not(:disabled) {
+  background: var(--c-green);
+  color: #000;
+  box-shadow: var(--glow-sm);
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn--amber {
+  border-color: var(--c-amber);
+  color: var(--c-amber);
+}
+
+.btn--amber:hover:not(:disabled) {
+  background: var(--c-amber);
+  box-shadow: var(--glow-amber);
+}
+
+.btn--ghost {
+  border-color: transparent;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

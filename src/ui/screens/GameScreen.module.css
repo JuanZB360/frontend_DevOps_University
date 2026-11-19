@@ -1,0 +1,94 @@
+.screen {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Contenedor de dock (solo tema Ubuntu) + área de trabajo */
+.desktop {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+}
+
+.layout {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: var(--space-3);
+  padding: var(--space-3);
+}
+
+.withManual {
+  grid-template-columns: 300px minmax(0, 1fr) 360px;
+}
+
+.terminal {
+  min-width: 0;
+  min-height: 0;
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-height: 0;
+}
+
+.side > section {
+  flex: 1;
+}
+
+.companion {
+  flex-shrink: 0;
+  /* Aire para el marco de la pantalla de N0X */
+  padding: 0 6px 6px 0;
+}
+
+/* Pantallas medianas: el manual pasa a ser un cajón flotante. */
+@media (max-width: 1100px) {
+  .layout,
+  .withManual {
+    grid-template-columns: minmax(0, 1fr) 320px;
+  }
+
+  .layout > aside {
+    position: fixed;
+    top: 64px;
+    bottom: 12px;
+    left: 12px;
+    width: min(340px, calc(100vw - 24px));
+    z-index: 30;
+    background: var(--c-panel-solid);
+  }
+}
+
+/* Móvil: una sola columna con desplazamiento. */
+@media (max-width: 720px) {
+  .screen {
+    height: auto;
+    min-height: 100%;
+  }
+
+  :global(body) {
+    overflow: auto;
+  }
+
+  .layout,
+  .withManual {
+    grid-template-columns: minmax(0, 1fr);
+    padding: var(--space-2);
+  }
+
+  .terminal {
+    height: 70vh;
+  }
+
+  .layout > aside {
+    top: 100px;
+  }
+}

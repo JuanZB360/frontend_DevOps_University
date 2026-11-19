@@ -1,0 +1,261 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: var(--c-panel);
+  border: 1px solid var(--c-border);
+  border-radius: 6px;
+  backdrop-filter: blur(3px);
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.breadcrumb {
+  margin: 0;
+  font-size: 11px;
+  color: var(--c-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1.05;
+  color: var(--c-green);
+  text-shadow: var(--glow-sm);
+}
+
+.boss {
+  color: var(--c-red);
+  text-shadow: var(--glow-red);
+}
+
+.bossTag {
+  display: inline-block;
+  margin-right: var(--space-2);
+  padding: 0 6px;
+  font-size: 18px;
+  background: var(--c-red);
+  color: #000;
+  vertical-align: 3px;
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--c-amber);
+}
+
+.dim {
+  color: var(--c-green-dim);
+}
+
+.chapterProgress {
+  display: flex;
+  gap: 3px;
+}
+
+.chapterProgress i {
+  flex: 1;
+  height: 4px;
+  background: rgb(var(--accent-rgb) / 0.12);
+}
+
+.chapterProgress .done {
+  background: var(--c-green);
+}
+
+.chapterProgress .current {
+  background: var(--c-amber);
+  animation: blink 1s infinite alternate;
+}
+
+@keyframes blink {
+  to { opacity: 0.4; }
+}
+
+.objective {
+  padding: var(--space-3);
+  border: 1px solid var(--c-border-strong);
+  border-radius: var(--radius);
+  background: var(--c-inset);
+}
+
+.objective p {
+  margin: var(--space-1) 0 0;
+  color: var(--c-text);
+}
+
+.label {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--c-amber);
+  letter-spacing: 0.12em;
+}
+
+.objective code,
+.hints code {
+  color: var(--c-cyan);
+}
+
+.hints {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  font-size: 12.5px;
+}
+
+.hints li {
+  padding: var(--space-2);
+  border-left: 2px solid var(--c-amber);
+  background: rgb(var(--amber-rgb) / 0.06);
+}
+
+.hintLabel {
+  display: block;
+  font-size: 10.5px;
+  color: var(--c-amber);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.map {
+  margin-top: var(--space-2);
+  font-size: 12px;
+}
+
+.map summary {
+  cursor: pointer;
+  color: var(--c-cyan);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 11px;
+}
+
+.modules {
+  list-style: none;
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.modules li {
+  display: flex;
+  flex-direction: column;
+  color: var(--c-green-soft);
+}
+
+.modules small {
+  color: var(--c-muted);
+  padding-left: 18px;
+}
+
+.modules .lockedModule {
+  color: var(--c-green-dim);
+}
+
+/* ─── Tema profesional ─── */
+:global(:root[data-theme='pro']) .title {
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--c-text);
+}
+
+:global(:root[data-theme='pro']) .boss {
+  color: var(--c-red);
+}
+
+:global(:root[data-theme='pro']) .bossTag {
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  vertical-align: 2px;
+  color: #fff;
+}
+
+:global(:root[data-theme='pro']) .breadcrumb,
+:global(:root[data-theme='pro']) .label,
+:global(:root[data-theme='pro']) .map summary {
+  letter-spacing: 0.04em;
+}
+
+:global(:root[data-theme='pro']) .objective {
+  border-color: var(--c-border);
+}
+
+/* ─── Tema Ubuntu: ventana de GNOME ─── */
+:global(:root[data-theme='ubuntu']) .panel {
+  padding-top: 0;
+  border: none;
+  border-radius: 12px;
+  background: var(--c-panel);
+  box-shadow: var(--shadow-panel);
+  backdrop-filter: none;
+}
+
+/* Barra de título de la ventana */
+:global(:root[data-theme='ubuntu']) .panel::before {
+  content: 'Misión actual';
+  display: block;
+  margin: 0 calc(-1 * var(--space-4)) var(--space-2);
+  padding: 11px;
+  background: var(--c-headerbar);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.35);
+  text-align: center;
+  font-weight: 700;
+  font-size: 13.5px;
+  color: #fff;
+}
+
+:global(:root[data-theme='ubuntu']) .title {
+  font-family: var(--font-ui);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: #fff;
+}
+
+:global(:root[data-theme='ubuntu']) .breadcrumb,
+:global(:root[data-theme='ubuntu']) .map summary {
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+:global(:root[data-theme='ubuntu']) .objective {
+  border: none;
+  border-radius: 10px;
+  background: var(--c-inset);
+}
+
+:global(:root[data-theme='ubuntu']) .label {
+  color: #ff8c5a;
+}
+
+:global(:root[data-theme='ubuntu']) .hints li {
+  border-radius: 0 8px 8px 0;
+}
+
+:global(:root[data-theme='ubuntu']) .bossTag {
+  border-radius: 6px;
+  font-size: 12px;
+  padding: 2px 6px;
+  vertical-align: 3px;
+  color: #fff;
+}

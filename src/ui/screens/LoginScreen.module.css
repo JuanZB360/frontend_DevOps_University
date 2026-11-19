@@ -1,0 +1,361 @@
+.screen {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  height: 100%;
+  padding: var(--space-4);
+  overflow-y: auto;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  width: min(520px, 100%);
+  padding: var(--space-5);
+  background: var(--c-panel);
+  border: 1px solid var(--c-border-strong);
+  border-radius: 8px;
+  box-shadow: var(--shadow-panel);
+  text-align: center;
+}
+
+.title {
+  position: relative;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(36px, 8vw, 56px);
+  font-weight: 400;
+  line-height: 1;
+  color: var(--c-green);
+  text-shadow: var(--glow-text-strong);
+  letter-spacing: 0.06em;
+}
+
+.title::before,
+.title::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+}
+
+.title::before {
+  color: var(--c-cyan);
+  animation: glitch 2.6s infinite steps(1);
+}
+
+.title::after {
+  color: var(--c-magenta);
+  animation: glitch 3.1s infinite reverse steps(1);
+}
+
+@keyframes glitch {
+  0%, 86%, 100% { transform: none; clip-path: inset(0 0 100% 0); }
+  88% { transform: translate(-3px, 1px); clip-path: inset(15% 0 55% 0); }
+  92% { transform: translate(3px, -1px); clip-path: inset(55% 0 15% 0); }
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 12px;
+  color: var(--c-cyan);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+}
+
+.intro {
+  margin: var(--space-2) 0;
+  color: var(--c-text);
+  font-size: 13px;
+}
+
+.n0x {
+  color: var(--c-green);
+  font-weight: 800;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-2);
+  width: 100%;
+  text-align: left;
+}
+
+.prompt {
+  font-size: 12px;
+  color: var(--c-muted);
+}
+
+.inputRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--c-border-strong);
+  border-radius: var(--radius);
+  background: var(--c-inset);
+}
+
+.inputRow:focus-within {
+  border-color: var(--c-green);
+  box-shadow: var(--glow-sm);
+}
+
+.chevron {
+  color: var(--c-green);
+  font-weight: 800;
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--c-green);
+  font: inherit;
+  font-size: 16px;
+  caret-color: var(--c-green);
+}
+
+/* Sin contorno del navegador al enfocar: el foco lo indica el brillo verde de .inputRow */
+.input:focus,
+.input:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+.input::placeholder {
+  color: var(--c-green-dim);
+}
+
+.help {
+  margin: 0;
+  font-size: 12px;
+  color: var(--c-muted);
+}
+
+.error {
+  margin: 0;
+  font-size: 12px;
+  color: var(--c-red);
+}
+
+.connect {
+  margin-top: var(--space-2);
+  padding: var(--space-3);
+  font-size: 14px;
+}
+
+/* ─── Pestañas Iniciar sesión / Crear cuenta ─── */
+.tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  border-bottom: 1px solid var(--c-border-strong);
+}
+
+.tab,
+.tabActive {
+  padding: var(--space-2);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  color: var(--c-muted);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.tab:hover:not(:disabled) {
+  color: var(--c-text);
+}
+
+.tabActive {
+  color: var(--c-green);
+  border-bottom-color: var(--c-green);
+  font-weight: 700;
+}
+
+.field {
+  margin-top: var(--space-1);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--c-text);
+}
+
+/* Botón "ver/ocultar" dentro del campo de contraseña */
+.reveal {
+  padding: 0 var(--space-1);
+  background: none;
+  border: none;
+  color: var(--c-muted);
+  font: inherit;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+
+.reveal:hover {
+  color: var(--c-green);
+}
+
+.connect:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.themeToggle {
+  background: none;
+  border: none;
+  color: var(--c-muted);
+  font-size: 12px;
+}
+
+.themeToggle:hover {
+  color: var(--c-green);
+}
+
+/* ─── Tema profesional ─── */
+:global(:root[data-theme='pro']) .card {
+  border-color: var(--c-border);
+}
+
+:global(:root[data-theme='pro']) .title {
+  font-size: clamp(26px, 5vw, 36px);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--c-text);
+}
+
+:global(:root[data-theme='pro']) .title::before,
+:global(:root[data-theme='pro']) .title::after {
+  display: none;
+}
+
+:global(:root[data-theme='pro']) .subtitle {
+  letter-spacing: 0.18em;
+  color: var(--c-muted);
+}
+
+:global(:root[data-theme='pro']) .intro {
+  color: var(--c-muted);
+}
+
+:global(:root[data-theme='pro']) .prompt {
+  font-family: var(--font-mono);
+}
+
+:global(:root[data-theme='pro']) .tabActive {
+  color: var(--c-text);
+  border-bottom-color: var(--c-green);
+}
+
+:global(:root[data-theme='pro']) .input {
+  font-family: var(--font-ui);
+  color: var(--c-text);
+}
+
+/* ─── Tema Ubuntu: ventana de GNOME ─── */
+:global(:root[data-theme='ubuntu']) .card {
+  border: none;
+  border-radius: 18px;
+  background: rgba(20, 20, 20, 0.55);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* El avatar es la propia pantalla LCD de N0X */
+:global(:root[data-theme='ubuntu']) .avatar {
+  display: grid;
+  place-items: center;
+  padding: 8px;
+}
+
+:global(:root[data-theme='ubuntu']) .title {
+  font-family: var(--font-ui);
+  font-size: clamp(26px, 5vw, 34px);
+  font-weight: 700;
+  letter-spacing: 0;
+  color: #fff;
+}
+
+:global(:root[data-theme='ubuntu']) .title::before,
+:global(:root[data-theme='ubuntu']) .title::after {
+  display: none;
+}
+
+:global(:root[data-theme='ubuntu']) .subtitle {
+  letter-spacing: 0.14em;
+  color: #deddda;
+}
+
+:global(:root[data-theme='ubuntu']) .intro {
+  color: #deddda;
+}
+
+:global(:root[data-theme='ubuntu']) .prompt {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: #deddda;
+}
+
+:global(:root[data-theme='ubuntu']) .inputRow {
+  border: 2px solid transparent;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+:global(:root[data-theme='ubuntu']) .inputRow:focus-within {
+  border-color: #e95420;
+  box-shadow: none;
+}
+
+:global(:root[data-theme='ubuntu']) .input {
+  font-family: var(--font-ui);
+  color: #fff;
+}
+
+:global(:root[data-theme='ubuntu']) .tabs {
+  border-bottom-color: rgba(255, 255, 255, 0.15);
+}
+
+:global(:root[data-theme='ubuntu']) .tab {
+  color: #c0bfbc;
+}
+
+:global(:root[data-theme='ubuntu']) .tabActive {
+  color: #fff;
+  border-bottom-color: #e95420;
+}
+
+:global(:root[data-theme='ubuntu']) .field {
+  font-family: var(--font-ui);
+  color: #fff;
+}
+
+:global(:root[data-theme='ubuntu']) .reveal:hover {
+  color: #e95420;
+}
+
+:global(:root[data-theme='ubuntu']) .chevron {
+  color: #e95420;
+}
+
+/* Más específico que la regla general de .btn (que se carga después) */
+:global(:root[data-theme='ubuntu']) .form .connect {
+  border-radius: 10px;
+  background: #e95420;
+  color: #fff;
+  font-weight: 700;
+}
+
+:global(:root[data-theme='ubuntu']) .form .connect:hover:not(:disabled) {
+  background: #f06a3a;
+}

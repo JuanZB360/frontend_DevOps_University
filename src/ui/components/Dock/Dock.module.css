@@ -1,0 +1,106 @@
+/* Dock de Ubuntu: columna oscura translúcida pegada al borde izquierdo */
+.dock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 64px;
+  padding: 10px 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(6px);
+  flex-shrink: 0;
+}
+
+.item {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  padding: 0;
+  border: none;
+  border-radius: 12px;
+  background: transparent;
+}
+
+.item:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.item:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Iconos: cuadrados redondeados con un símbolo, al estilo Yaru */
+.icon {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  font-family: 'Ubuntu Mono', monospace;
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.terminal {
+  background: linear-gradient(160deg, #3d3d3d, #1f1f1f);
+  border: 1px solid #555;
+  font-size: 17px;
+}
+
+.manual {
+  background: linear-gradient(160deg, #f06a3a, #c7431a);
+  font-family: 'Ubuntu', sans-serif;
+}
+
+.hint {
+  background: linear-gradient(160deg, #f8e45c, #e5a50a);
+  color: #3d2b00;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+.sound {
+  background: linear-gradient(160deg, #62a0ea, #1c71d8);
+}
+
+.muted {
+  filter: grayscale(1);
+  opacity: 0.6;
+}
+
+/* Punto naranja de "aplicación abierta" */
+.running {
+  position: absolute;
+  left: 2px;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #e95420;
+  transform: translateY(-50%);
+}
+
+.apps {
+  display: grid;
+  grid-template-columns: repeat(3, 5px);
+  gap: 4px;
+  margin-top: auto;
+  padding: 14px;
+}
+
+.apps i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #deddda;
+}
+
+@media (max-width: 720px) {
+  .dock {
+    display: none;
+  }
+}
