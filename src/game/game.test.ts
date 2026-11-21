@@ -185,4 +185,20 @@ describe('reiniciar escenario', () => {
     game.restartMission('ui');
     expect(game.session.cwd).toBe('/var/log');
   });
+
+  it('completa la misión de grep (linux-06-04) en una terminal interactiva TTY con colores ANSI', async () => {
+    const game = startNewGame('Neo', new LocalStorageSaveRepository(memoryStorage()));
+    await playUntil(game, 'linux-06-04');
+    const started = game.startCurrentMission();
+    expect(started?.mission.id).toBe('linux-06-04');
+
+    const ttyOut = {
+      isTTY: true,
+      buffer: '',
+      write(text: string) { this.buffer += text; },
+    };
+    const report = await game.shell.execute('grep ERROR /var/log/app.log', ttyOut);
+    game.handleReport(report);
+    expect(game.view().completedMissions['linux-06-04']).toBeDefined();
+  });
 });

@@ -25,6 +25,12 @@ export function hasFlag(args: readonly string[], short: string, long?: string): 
   return args.some((a) => (a.startsWith('-') && !a.startsWith('--') && a.slice(1).includes(short)) || (long !== undefined && a === `--${long}`));
 }
 
+// eslint-disable-next-line no-control-regex
+const ANSI_PATTERN = /\x1b\[[0-9;]*[a-zA-Z]/g;
+
+/** Elimina secuencias de escape ANSI de una cadena para comparar texto limpio. */
+export const stripAnsi = (text: string): string => text.replace(ANSI_PATTERN, '');
+
 /** Busca, en la última línea ejecutada, un comando que cumpla la condición. */
 function findCommand(ctx: ValidationContext, name: string, extra: (c: ExecutedCommand) => boolean = () => true): ExecutedCommand | undefined {
   return ctx.report.commands.find((c) => c.name === name && c.exitCode === 0 && extra(c));
@@ -42,11 +48,11 @@ export const ranWithFlag = (name: string, short: string, long?: string): Mission
 
 /** La salida de `name` cumple la expresión regular. */
 export const outputMatches = (name: string, pattern: RegExp): MissionCheck =>
-  (ctx) => findCommand(ctx, name, (c) => pattern.test(c.stdout)) !== undefined;
+  (ctx) => findCommand(ctx, name, (c) => pattern.test(stripAnsi(c.stdout))) !== undefined;
 
 /** La salida de `name`, sin el salto final, es exactamente `text`. */
 export const outputEquals = (name: string, text: string): MissionCheck =>
-  (ctx) => findCommand(ctx, name, (c) => c.stdout.replace(/\n$/, '') === text) !== undefined;
+  (ctx) => findCommand(ctx, name, (c) => stripAnsi(c.stdout).replace(/\n$/, '') === text) !== undefined;
 
 // ───────────────────────────── Sobre el estado del sistema ─────────────────────────────
 
@@ -122,7 +128,7 @@ export const ownedBy = (path: string, owner: string, group?: string): MissionChe
 
 /** La salida que vio el jugador: la del último comando de la línea (el final de la tubería). */
 export function finalOutput(ctx: ValidationContext): string {
-  return ctx.report.commands.at(-1)?.stdout ?? '';
+  return stripAnsi(ctx.report.commands.at(-1)?.stdout ?? '');
 }
 
 export const finalOutputMatches = (pattern: RegExp): MissionCheck => (ctx) => ctx.report.exitCode === 0 && pattern.test(finalOutput(ctx));
@@ -131,7 +137,7 @@ export const finalOutputMatches = (pattern: RegExp): MissionCheck => (ctx) => ct
 export const finalOutputIs = (text: string | ((ctx: ValidationContext) => string)): MissionCheck =>
   (ctx) => {
     const expected = typeof text === 'string' ? text : text(ctx);
-    const normalizeText = (t: string): string => t.split('\n').map((l) => l.trim()).filter(Boolean).join('\n');
+    const normalizeText = (t: string): string => stripAnsi(t).split('\n').map((l) => l.trim()).filter(Boolean).join('\n');
     return ctx.report.commands.length > 0 && normalizeText(finalOutput(ctx)) === normalizeText(expected);
   };
 
